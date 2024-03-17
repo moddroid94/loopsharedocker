@@ -1,2 +1,5 @@
 .env.prod*
 docker-compose.prod.yml
+node_modules
+package-lock.json
+.*
