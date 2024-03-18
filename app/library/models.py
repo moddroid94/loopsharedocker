@@ -10,11 +10,12 @@ def get_pack_types():
 class Pack(models.Model):
     type = models.CharField(max_length=3, choices=get_pack_types)
     name = models.CharField(max_length=100)
+    cover = models.ImageField(upload_to="uploads/artworks/")
 
     def __str__(self):
         return f"{self.name}"
     
 class Sample(models.Model):
-    file = models.FileField(upload_to='uploads/')
     pack = models.ForeignKey(Pack, on_delete=models.CASCADE,related_name="samples")
+    file = models.FileField(upload_to='uploads/sounds/')
 

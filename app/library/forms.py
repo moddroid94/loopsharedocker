@@ -29,6 +29,6 @@ class PackForm(forms.ModelForm):
     samples = MultipleFileField()
     class Meta:
         model = Pack
-        fields = ["type", "name"]
+        fields = ["type", "name", "cover"]
     
     
