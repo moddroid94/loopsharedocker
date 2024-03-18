@@ -19,7 +19,6 @@ class PackAdmin(admin.ModelAdmin):
     def save_model(self, request: Any, obj: Any, form: Any, change: Any) -> None:
         super().save_model(request, obj, form, change)
         files = request.FILES.getlist('samples')
-        logger.warning(request.POST)
         for f in files:
             instance = Sample(file=f, pack=obj)
             instance.save()

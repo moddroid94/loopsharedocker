@@ -10,7 +10,6 @@ def get_pack_types():
     return {i: x for i,x in settings.PACKTYPES}
 
 def get_save_path(instance, filename):
-    logging.warning(instance.pack)
     return 'uploads/{0}/Sounds/{1}'.format(instance.pack, filename)
 
 class Pack(models.Model):
