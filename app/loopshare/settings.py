@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'upload',
+    'library',
 ]
 
 MIDDLEWARE = [
@@ -139,3 +140,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Media Files Cookie Trust
 CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]
+
+# Project Specific Values
+
+PACKTYPES = (
+    ("SK", "Sample Kit"),
+    ("PD", "Prod. Kit"),
+    ("DK", "Drum Kit"),
+)
