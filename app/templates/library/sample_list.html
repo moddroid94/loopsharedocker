@@ -1,0 +1,27 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<table class="table-auto">
+    <thead>
+      <tr>
+        <th>File</th>
+        <th>Category</th>
+        <th>Pack</th>
+      </tr>
+    </thead>
+    <tbody>
+    <!-- Iterate over object_list -->
+    {% for object in object_list %} 
+      <tr>
+        <td>{{ object.file }}</td>
+        <td>{{ object.category }}</td>
+        <td>{{ object.pack }}</td>
+      </tr>
+    {% empty %} 
+      <tr>
+        <td>nothing here</td>
+      </tr>
+    {% endfor %} 
+    </tbody>
+  </table>
+  {% endblock content %}

@@ -19,11 +19,13 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from .views import index
+from library.views import SampleList
 
 from upload.views import image_upload
 
 urlpatterns = [
     path("", index, name='index'),
+    path("sample/", SampleList.as_view(), name='sample'),
     path("upload/", image_upload, name="upload"),
     path("admin/", admin.site.urls),
 ]

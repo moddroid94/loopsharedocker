@@ -1,6 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .forms import FileFieldForm
+from .models import Sample
+from django.views.generic.list import ListView
 
 def upload_file(request):
     if request.method == "POST":
@@ -13,3 +15,5 @@ def upload_file(request):
         form = FileFieldForm()
     return render(request, "upload.html", {"form": form})
 
+class SampleList(ListView):
+    model = Sample
