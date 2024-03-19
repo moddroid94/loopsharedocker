@@ -145,6 +145,14 @@ CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]
 
 PACKTYPES = (
     ("SK", "Sample Kit"),
-    ("PD", "Prod. Kit"),
+    ("PK", "Prod. Kit"),
     ("DK", "Drum Kit"),
+)
+
+CATEGORYTYPES = (
+    ("DR", "Drums"),
+    ("ML", "Melodies"),
+    ("VO", "Vocals"),
+    ("FX", "Sfxs"),
+    ("NO", "Ambients")
 )

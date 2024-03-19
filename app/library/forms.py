@@ -26,9 +26,13 @@ class FileFieldForm(forms.Form):
     file_field = MultipleFileField()
 
 class PackForm(forms.ModelForm):
-    samples = MultipleFileField()
+    drums = MultipleFileField()
+    melodies = MultipleFileField()
+    vocals = MultipleFileField()
+    sfxs = MultipleFileField()
+    ambients = MultipleFileField()
     class Meta:
         model = Pack
-        fields = ["type", "name", "cover"]
+        fields = ["type", "name", "author", "cover"]
     
     

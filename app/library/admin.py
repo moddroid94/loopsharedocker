@@ -1,6 +1,7 @@
 from typing import Any
 from django.contrib import admin
 from .forms import PackForm
+from django.conf import settings
 
 # Register your models here.
 from .models import Pack, Sample
@@ -18,10 +19,16 @@ class PackAdmin(admin.ModelAdmin):
 
     def save_model(self, request: Any, obj: Any, form: Any, change: Any) -> None:
         super().save_model(request, obj, form, change)
-        files = request.FILES.getlist('samples')
-        for f in files:
-            instance = Sample(file=f, pack=obj)
-            instance.save()
+        categories = {}
+        for c,cn in settings.CATEGORYTYPES:
+            categories[c] = cn
+        logging.warning(categories)
+        for key, value in categories.items():
+            logging.warning((key, value))
+            files = request.FILES.getlist(str(value).lower())
+            for f in files:
+                instance = Sample(file=f, pack=obj, category=key)
+                instance.save()
         
 
 @admin.register(Sample)
