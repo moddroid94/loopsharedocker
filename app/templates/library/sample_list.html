@@ -1,27 +1,18 @@
 {% extends "_base.html" %}
 
 {% block content %}
-<table class="table-auto">
-    <thead>
-      <tr>
-        <th>File</th>
-        <th>Category</th>
-        <th>Pack</th>
-      </tr>
-    </thead>
-    <tbody>
-    <!-- Iterate over object_list -->
-    {% for object in object_list %} 
-      <tr>
-        <td>{{ object.file }}</td>
-        <td>{{ object.category }}</td>
-        <td>{{ object.pack }}</td>
-      </tr>
-    {% empty %} 
-      <tr>
-        <td>nothing here</td>
-      </tr>
-    {% endfor %} 
-    </tbody>
-  </table>
+  {% for object in object_list %} 
+  <div class="flex flex-col w-ful">
+    <div class="flex flex-row border-b border-gray-200 text-gray-100 flex-nowrap items-center ">
+      <div class="mx-2 my-2 ">{{ object.file }}</p></div>
+      {% for value, name in object.categories.choices %}
+      {% if value == object.category %}
+      <div class="mx-2 my-2">{{ name }}</div>
+      {% endif %}
+      {% endfor %}
+      <div class="mx-2 my-2">{{ object.pack }}</div>
+    </div>
+  </div>
+  {% empty %} 
+  {% endfor %}
   {% endblock content %}

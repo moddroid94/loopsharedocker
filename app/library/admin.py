@@ -10,7 +10,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class SampleAdmin(admin.TabularInline):
+class SampleAdminInline(admin.TabularInline):
     model = Sample
 
 @admin.register(Pack)
@@ -19,16 +19,12 @@ class PackAdmin(admin.ModelAdmin):
 
     def save_model(self, request: Any, obj: Any, form: Any, change: Any) -> None:
         super().save_model(request, obj, form, change)
-        categories = {}
-        for c,cn in settings.CATEGORYTYPES:
-            categories[c] = cn
-        logging.warning(categories)
-        for key, value in categories.items():
-            logging.warning((key, value))
-            files = request.FILES.getlist(str(value).lower())
+        for v, n in Sample.categories.choices:
+            files = request.FILES.getlist(n.lower())
             for f in files:
-                instance = Sample(file=f, pack=obj, category=key)
+                instance = Sample(file=f, pack=obj, category=v)
                 instance.save()
+            
         
 
 @admin.register(Sample)

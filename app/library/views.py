@@ -3,6 +3,7 @@ from django.shortcuts import render
 from .forms import FileFieldForm
 from .models import Sample
 from django.views.generic.list import ListView
+from django.conf import settings
 
 def upload_file(request):
     if request.method == "POST":
