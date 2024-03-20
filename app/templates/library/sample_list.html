@@ -1,18 +1,43 @@
 {% extends "_base.html" %}
+{% load static %}
 
 {% block content %}
+<div class="flex flex-col w-full">
   {% for object in object_list %} 
-  <div class="flex flex-col w-ful">
-    <div class="flex flex-row border-b border-gray-200 text-gray-100 flex-nowrap items-center ">
-      <div class="mx-2 my-2 ">{{ object.file }}</p></div>
+  
+    <div class="flex flex-row border-b border-gray-200 text-gray-100 flex-nowrap items-center cursor-pointer transition ease-in-out hover:bg-gray-600 focus:bg-indigo-100 duration-400" onclick="SelectSample(this, '{{object.file.url}}')">
+      <button class="shrink-0 size-8 bg-red-900 bg-clip-border rounded-full">P</button>
+
+      <div class="basis-3/5 shrink-0 mx-2 my-2 text-ellipsis">{{ object.file }}</div>
       {% for value, name in object.categories.choices %}
       {% if value == object.category %}
-      <div class="mx-2 my-2">{{ name }}</div>
+      <div class="basis-1/5 mx-2 my-2">{{ name }}</div>
       {% endif %}
       {% endfor %}
-      <div class="mx-2 my-2">{{ object.pack }}</div>
+      <div class="basis-1/5 mx-2 my-2">{{ object.pack }}</div>
     </div>
-  </div>
+  
   {% empty %} 
   {% endfor %}
+</div>
+  <div class="container absolute bottom-0 max-w-full">
+  <div id="audio-player" class="flex flex-col bottom-0 w-full ">
+    <audio src=""></audio>
+    <div id="controls" class="flex flex-row justify-evenly">
+      <button id="audio-play" class="transition ease-in-out my-2 self-center bg-white bg-clip-border rounded-full p-2 hover:bg-indigo-300 hover:scale-110"><svg class="pl-0.5" fill="#000000" height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 58.752 58.752" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M52.524,23.925L12.507,0.824c-1.907-1.1-4.376-1.097-6.276,0C4.293,1.94,3.088,4.025,3.088,6.264v46.205 c0,2.24,1.204,4.325,3.131,5.435c0.953,0.555,2.042,0.848,3.149,0.848c1.104,0,2.192-0.292,3.141-0.843l40.017-23.103 c1.936-1.119,3.138-3.203,3.138-5.439C55.663,27.134,54.462,25.05,52.524,23.925z M49.524,29.612L9.504,52.716 c-0.082,0.047-0.18,0.052-0.279-0.005c-0.084-0.049-0.137-0.142-0.137-0.242V6.263c0-0.1,0.052-0.192,0.14-0.243 c0.042-0.025,0.09-0.038,0.139-0.038c0.051,0,0.099,0.013,0.142,0.038l40.01,23.098c0.089,0.052,0.145,0.147,0.145,0.249 C49.663,29.47,49.611,29.561,49.524,29.612z"></path> </g> </g></svg></button>
+      <button id="audio-bwd" class="bg-white bg-clip-border rounded-full hidden"></button>
+      <button id="audio-fwd" class="bg-white bg-clip-border rounded-full hidden"></button>
+      <div id="progress">
+        <progress id="audio-playbar" max="100" value="60"></progress>
+      </div>
+      <input type="range" id="volume-slider" max="100" value="10">
+      <div id="mute">
+        <span id="audio-mute"></span>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="{% static '/js/player.js' %}"></script>
   {% endblock content %}
