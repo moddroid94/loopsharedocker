@@ -30,16 +30,13 @@ volumeRange.addEventListener("input",(event)=>{
   audio.volume = event.target.value / 100;
 });
 
-audio.addEventListener("timeupdate",(e)=>{
-progress.value = (e.target.currentTime / e.target.duration) * 100;
-if(e.target.currentTime/e.target.duration === 1){
-  play();
-  audio.currentTime = 0;
+audio.ontimeupdate = (e) => {
+    progress.max = e.target.duration
+    progress.value = e.target.currentTime
 }
-});
-
 audio.onended = (e) => {
     audio.pause()
+    audio.currentTime = 0;
 }
 
 playButton.addEventListener("click",play);
@@ -51,7 +48,7 @@ document.querySelector("#audio-bwd")
   .addEventListener("click",bwd);
 
 var activeSample = null
-function SelectSample(parentElement, audiosrc){
+function SelectSample(parentElement, audiosrc, filename){
     audio = document.querySelector("audio")
     audio.src = audiosrc
     audio.load()
@@ -60,5 +57,5 @@ function SelectSample(parentElement, audiosrc){
     }
     parentElement.classList.add('active')
     activeSample = parentElement
-
+    document.getElementById("title").innerHTML = filename
 }
