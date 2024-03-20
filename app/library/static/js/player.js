@@ -57,5 +57,5 @@ function SelectSample(parentElement, audiosrc, filename){
     }
     parentElement.classList.add('active')
     activeSample = parentElement
-    document.getElementById("title").innerHTML = filename
+    document.getElementById("title").innerText = filename
 }
