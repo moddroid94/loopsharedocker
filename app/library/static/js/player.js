@@ -1,16 +1,19 @@
 var audio = document.querySelector("audio")
 var playButton = document.querySelector("#audio-play")
+var pauseButton = document.querySelector("#audio-pause")
 var progress = document.querySelector("#audio-playbar")
 var volumeRange = document.getElementById('volume-slider')
 
 const play = () =>{
   if(audio.paused){
     console.log("play");
-    playButton.classList.add("paused");
+    playButton.classList.add("hidden");
+    pauseButton.classList.remove("hidden")
     audio.play();
   }else{
     console.log("pause");
-    playButton.classList.remove("paused");
+    playButton.classList.remove("hidden");
+    pauseButton.classList.add("hidden")
     audio.pause();
   }
 };
@@ -36,10 +39,13 @@ audio.ontimeupdate = (e) => {
 }
 audio.onended = (e) => {
     audio.pause()
+    playButton.classList.remove("hidden");
+    pauseButton.classList.add("hidden")
     audio.currentTime = 0;
 }
 
 playButton.addEventListener("click",play);
+pauseButton.addEventListener("click",play);
 
 document.querySelector("#audio-fwd")
   .addEventListener("click",fwd);
@@ -58,4 +64,5 @@ function SelectSample(parentElement, audiosrc, filename){
     parentElement.classList.add('active')
     activeSample = parentElement
     document.getElementById("title").innerText = filename
+    play()
 }

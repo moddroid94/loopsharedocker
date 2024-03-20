@@ -1,3 +1,7 @@
 .active {
   background-color: darkslategrey;
 }
+
+#audio-play .paused {
+  display: none;
+}
