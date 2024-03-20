@@ -1,68 +1,101 @@
 {% extends "_base.html" %}
+
+
+
 {% load static %}
 
 {% block content %}
-<div class="flex flex-col w-full">
-  {% for object in object_list %} 
-  
-    <div class="flex flex-row border-b border-gray-200 text-gray-100 flex-nowrap items-center cursor-pointer transition ease-in-out hover:bg-gray-600 active:bg-teal-950 duration-400" onclick="SelectSample(this, '{{object.file.url}}', '{{object.file}}')">
-      <button class="shrink-0 size-8 bg-red-900 bg-clip-border rounded-full">P</button>
-
-      <div class="basis-3/5 shrink-0 mx-2 my-2 text-ellipsis">{{ object.name }}</div>
-      {% for value, name in object.categories.choices %}
-      {% if value == object.category %}
-      <div class="basis-1/5 mx-2 my-2">{{ name }}</div>
-      {% endif %}
-      {% endfor %}
-      <div class="basis-1/5 mx-2 my-2">{{ object.pack }}</div>
-    </div>
-  
-  {% empty %} 
-  {% endfor %}
-</div>
-  <div class="container absolute bottom-0 max-w-full bg-teal-600 z-10">
-  <div id="audio-player" class="flex flex-col bottom-0 w-full ">
-    <audio src="null" preload="none"></audio>
-    
-    <div id="controls" class="transition-all flex flex-row justify-between mx-8 ">
-
-      <button id="audio-play" class="basis-8 shrink-0 transition ease-in-out my-2 self-center bg-white bg-clip-border rounded-full p-2 hover:bg-indigo-300 hover:shadow-lg">
-        <svg class="pl-0.5" fill="#000000" height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 58.752 58.752" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M52.524,23.925L12.507,0.824c-1.907-1.1-4.376-1.097-6.276,0C4.293,1.94,3.088,4.025,3.088,6.264v46.205 c0,2.24,1.204,4.325,3.131,5.435c0.953,0.555,2.042,0.848,3.149,0.848c1.104,0,2.192-0.292,3.141-0.843l40.017-23.103 c1.936-1.119,3.138-3.203,3.138-5.439C55.663,27.134,54.462,25.05,52.524,23.925z M49.524,29.612L9.504,52.716 c-0.082,0.047-0.18,0.052-0.279-0.005c-0.084-0.049-0.137-0.142-0.137-0.242V6.263c0-0.1,0.052-0.192,0.14-0.243 c0.042-0.025,0.09-0.038,0.139-0.038c0.051,0,0.099,0.013,0.142,0.038l40.01,23.098c0.089,0.052,0.145,0.147,0.145,0.249 C49.663,29.47,49.611,29.561,49.524,29.612z"></path> </g> </g></svg>
-      </button>
-      <button id="audio-pause" class="basis-8 shrink-0 transition ease-in-out my-2 self-center bg-white bg-clip-border rounded-full p-2 hover:bg-indigo-300 hover:shadow-lg hidden">
-        <svg height="20px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M224,435.8V76.1c0-6.7-5.4-12.1-12.2-12.1h-71.6c-6.8,0-12.2,5.4-12.2,12.1v359.7c0,6.7,5.4,12.2,12.2,12.2h71.6   C218.6,448,224,442.6,224,435.8z"/><path d="M371.8,64h-71.6c-6.7,0-12.2,5.4-12.2,12.1v359.7c0,6.7,5.4,12.2,12.2,12.2h71.6c6.7,0,12.2-5.4,12.2-12.2V76.1   C384,69.4,378.6,64,371.8,64z"/></g></svg>
-      </button>
-
-      <p id="title" class="basis-2/6 mx-8 self-center text-slate-800 text-ellipsis truncate">Nothing Loaded</p>
-
-      <button id="audio-bwd" class="basis-0 bg-white bg-clip-border rounded-full hidden"></button>
-      <button id="audio-fwd" class="basis-0 bg-white bg-clip-border rounded-full hidden"></button>
+{% include "sidebar.html" %}
+<div class="relative sm:ml-64 h-screen ">
+  <div class="p-4">
+    <div class="flex flex-col flex-nowrap">
+      {% for object in object_list %} 
       
-      <div id="progress" class="basis-3/6 shrink-0 self-center w-64 mx-8 appearance-none bg-gray-700 h-6 rounded-lg">
-        <div class="appearance-none bg-gray-100 h-6 rounded-lg w-full" id="audio-playbar" style="width: 0%"></div>
+        <div class="group flex flex-row text-white rounded-lg items-center divide-x divide-slate-700 hover:bg-gray-600 active:bg-gray-700 duration-400" >
+          <button class="shrink-0 size-8 bg-red-900 bg-clip-border rounded-full mx-2 my-2 divide-none">
+            <img src="{{object.pack.artwork.url}}">
+          </button>
+    
+          <div class="flex flex-row group/name basis-2/5 shrink-0 mx-2 my-2 pl-2 text-ellipsis font-bold text-md font-sans cursor-pointer transition ease-in-out" onclick="SelectSample(this, '{{object.file.url}}', '{{object.name}}')">
+            <a class="flex group-hover:bg-gray-700 rounded-lg py-2 px-3 w-auto">
+              <span class="">{{ object.name }}</span>
+              <svg class="invisible text-slate-400 transition group-hover/name:translate-x-0.5 group-hover/name:visible" width="18" heigth="18px" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"></path>
+              </svg>
+            </a>
+            
+          </div>
+          {% for value, name in object.categories.choices %}
+          {% if value == object.category %}
+          <div class="group/cat basis-1/5 mx-2 my-2 hover:font-bold hover:text-blue-300 pl-2">
+            <a href="" class="group-hover/cat:bg-gray-700 py-2 px-3 rounded-full">{{ name }}</a></div>
+          {% endif %}
+          {% endfor %}
+          <div class="group/pack flex flex-row basis-1/5 mx-2 my-2 hover:font-bold hover:text-blue-300 pl-2">
+            <a class="flex group-hover/pack:bg-gray-700 py-2 px-3 rounded-full w-auto" href="/sample/{{ object.pack }}">
+              <span>{{ object.pack }}</span>
+              <svg class="invisible text-slate-400 transition group-hover/pack:translate-x-0.5 group-hover/pack:visible" width="18" heigth="18px" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="h-0.5 bg-gray-700"></div>
+      
+      {% empty %} 
+      {% endfor %}
+      
+    </div>
+    <div class="pagination">
+      <span class="step-links">
+          {% if page_obj.has_previous %}
+              <a href="?page=1">&laquo; first</a>
+              <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+          {% endif %}
+    
+          <span class="current">
+              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+          </span>
+    
+          {% if page_obj.has_next %}
+              <a href="?page={{ page_obj.next_page_number }}">next</a>
+              <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+          {% endif %}
+      </span>
+    </div>
+    
+  </div>
+  <div class="flex fixed bottom-0 right-0 p-4 bg-teal-600 z-10 w-full sm:pl-64">
+    <div class="flex flex-row px-4 w-full">
+      <audio src="null" preload="none"></audio>
+    
+      <div id="controls" class="transition-all flex flex-row justify-between w-full">
+
+        <button id="audio-play" class="basis-8 shrink-0 transition ease-in-out my-2 self-center bg-white bg-clip-border rounded-full p-2 hover:bg-indigo-300 hover:shadow-lg">
+          <svg class="pl-0.5" fill="#000000" height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 58.752 58.752" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M52.524,23.925L12.507,0.824c-1.907-1.1-4.376-1.097-6.276,0C4.293,1.94,3.088,4.025,3.088,6.264v46.205 c0,2.24,1.204,4.325,3.131,5.435c0.953,0.555,2.042,0.848,3.149,0.848c1.104,0,2.192-0.292,3.141-0.843l40.017-23.103 c1.936-1.119,3.138-3.203,3.138-5.439C55.663,27.134,54.462,25.05,52.524,23.925z M49.524,29.612L9.504,52.716 c-0.082,0.047-0.18,0.052-0.279-0.005c-0.084-0.049-0.137-0.142-0.137-0.242V6.263c0-0.1,0.052-0.192,0.14-0.243 c0.042-0.025,0.09-0.038,0.139-0.038c0.051,0,0.099,0.013,0.142,0.038l40.01,23.098c0.089,0.052,0.145,0.147,0.145,0.249 C49.663,29.47,49.611,29.561,49.524,29.612z"></path> </g> </g></svg>
+        </button>
+        <button id="audio-pause" class="basis-8 shrink-0 transition ease-in-out my-2 self-center bg-white bg-clip-border rounded-full p-2 hover:bg-indigo-300 hover:shadow-lg hidden">
+          <svg height="20px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M224,435.8V76.1c0-6.7-5.4-12.1-12.2-12.1h-71.6c-6.8,0-12.2,5.4-12.2,12.1v359.7c0,6.7,5.4,12.2,12.2,12.2h71.6   C218.6,448,224,442.6,224,435.8z"/><path d="M371.8,64h-71.6c-6.7,0-12.2,5.4-12.2,12.1v359.7c0,6.7,5.4,12.2,12.2,12.2h71.6c6.7,0,12.2-5.4,12.2-12.2V76.1   C384,69.4,378.6,64,371.8,64z"/></g></svg>
+        </button>
+
+        <p id="title" class="basis-2/6 mx-8 self-center text-slate-800 text-lg font-bold text-ellipsis truncate">Nothing Loaded</p>
+
+        <button id="audio-bwd" class="basis-0 bg-white bg-clip-border rounded-full hidden"></button>
+        <button id="audio-fwd" class="basis-0 bg-white bg-clip-border rounded-full hidden"></button>
+        
+        <div id="progress" class="basis-3/6 shrink-0 self-center w-64 mx-8 appearance-none bg-gray-700 h-6 rounded-lg">
+          <div class="appearance-none bg-gray-100 h-6 rounded-lg w-full" id="audio-playbar" style="width: 0%"></div>
+        </div>
+
+        <input id="volume-range" type="range" max="100" value="10" class="appearance-none basis-32 w-22 h-3 rounded-full cursor-pointer self-center">
+
       </div>
-
-      <input id="volume-range" type="range" max="100" value="10" class="appearance-none basis-32 w-22 h-3 rounded-full cursor-pointer self-center">
-
     </div>
   </div>
-</div>
-<div class="pagination">
-  <span class="step-links">
-      {% if page_obj.has_previous %}
-          <a href="?page=1">&laquo; first</a>
-          <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-      {% endif %}
+  </div>
+  
 
-      <span class="current">
-          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-      </span>
+  
 
-      {% if page_obj.has_next %}
-          <a href="?page={{ page_obj.next_page_number }}">next</a>
-          <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-      {% endif %}
-  </span>
-</div>
   <script src="{% static '/js/player.js' %}"></script>
   {% endblock content %}

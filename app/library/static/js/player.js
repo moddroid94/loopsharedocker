@@ -61,9 +61,9 @@ function SelectSample(parentElement, audiosrc, filename){
     audio.src = audiosrc
     audio.load()
     if (activeSample) {
-        activeSample.classList.remove('active')
+        activeSample.parentNode.classList.remove('active')
     }
-    parentElement.classList.add('active')
+    parentElement.parentNode.classList.add('active')
     activeSample = parentElement
     document.getElementById("title").innerText = filename
     play()

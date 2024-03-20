@@ -14,18 +14,18 @@
     
     <!-- DEBUG CDN - REMOVE IN PROD-->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     
     
 </head>
  
-<body class="bg-gray-800 h-screen">
-    <div class="static container max-w-full h-full">
+<body class="p-5 bg-gray-800 antialiased !p-0">
+    <div class="">
         {% block content %}
         {% endblock content %}
     </div>
-    <!-- DEBUG CDN - REMOVE IN PROD
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>-->
+    <!-- DEBUG CDN - REMOVE IN PROD-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>
  
 </html>
