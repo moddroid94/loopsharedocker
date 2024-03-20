@@ -1,9 +1,16 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .forms import FileFieldForm
-from .models import Sample
+from .models import Sample, Pack
 from django.views.generic.list import ListView
 from django.conf import settings
+from django.shortcuts import get_object_or_404
+
+import logging
+
+logger = logging.getLogger(__name__)
 
 def upload_file(request):
     if request.method == "POST":
@@ -17,4 +24,13 @@ def upload_file(request):
     return render(request, "upload.html", {"form": form})
 
 class SampleList(ListView):
+    paginate_by = 20
     model = Sample
+                  
+    def get_queryset(self) -> QuerySet[Any]:
+        if "pack" in self.kwargs:
+            self.pack = get_object_or_404(Pack, name=self.kwargs["pack"] )
+            return Sample.objects.filter(pack=self.pack)
+        else :
+            return super().get_queryset()
+        

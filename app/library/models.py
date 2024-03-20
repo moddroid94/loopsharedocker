@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from pathlib import Path
 
 import logging
 
@@ -37,7 +38,16 @@ class Sample(models.Model):
     pack = models.ForeignKey(Pack, on_delete=models.CASCADE,related_name="samples")
     category = models.CharField(max_length=3, choices=categories)
     file = models.FileField(upload_to=get_save_path)
+    name = models.CharField(max_length=100, blank=True)
 
+    class Meta:
+        ordering = ['-name', "name", "pack", "category"]
+    
     def __str__(self):
         return f"{self.file}"
+    
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.name = Path(self.file.url).name
+        super().save(*args, **kwargs)
 

@@ -11,7 +11,10 @@
     <title>Django + Tailwind CSS</title>
     
     <link href="{% static 'css/compiled.css' %}" rel="stylesheet">
+    
+    <!-- DEBUG CDN - REMOVE IN PROD-->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />-->
     
     
 </head>
@@ -21,6 +24,8 @@
         {% block content %}
         {% endblock content %}
     </div>
+    <!-- DEBUG CDN - REMOVE IN PROD
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>-->
 </body>
  
 </html>

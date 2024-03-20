@@ -1,8 +1,8 @@
 var audio = document.querySelector("audio")
 var playButton = document.querySelector("#audio-play")
 var pauseButton = document.querySelector("#audio-pause")
-var progress = document.querySelector("#audio-playbar")
-var volumeRange = document.getElementById('volume-slider')
+var progress = document.getElementById("audio-playbar")
+var volumeRange = document.getElementById('volume-range')
 
 const play = () =>{
   if(audio.paused){
@@ -33,10 +33,12 @@ volumeRange.addEventListener("input",(event)=>{
   audio.volume = event.target.value / 100;
 });
 
+
 audio.ontimeupdate = (e) => {
-    progress.max = e.target.duration
-    progress.value = e.target.currentTime
-}
+    value = String(e.target.currentTime / e.target.duration * 100) + String('%')
+    progress.style.width = value;
+    }
+
 audio.onended = (e) => {
     audio.pause()
     playButton.classList.remove("hidden");

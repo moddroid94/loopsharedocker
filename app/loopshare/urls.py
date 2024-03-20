@@ -26,6 +26,7 @@ from upload.views import image_upload
 urlpatterns = [
     path("", index, name='index'),
     path("sample/", SampleList.as_view(), name='sample'),
+    path("sample/<str:pack>", SampleList.as_view(), name='sampleperpack'),
     path("upload/", image_upload, name="upload"),
     path("admin/", admin.site.urls),
 ]
