@@ -5,19 +5,42 @@
 {% load static %}
 
 {% block content %}
-{% include "sidebar.html" %}
-<div class="relative sm:ml-64 h-screen ">
-  <div class="p-4">
-    <div class="flex flex-col flex-nowrap">
+
+<div class="static sm:ml-64 h-screen mx-auto">
+  <div class="relative p-4">
+    <div class="fixed left-64 right-0 top-16 flex flex-col flex-nowrap shadow-md">
+        <div class="static text-white flex flex-row items-center divide-x divide-slate-700 pl-4 bg-gray-600 h-14 pr-4">
+          <button class=" invisible size-8 bg-red-900 bg-clip-border rounded-full mx-2 my-2 divide-none">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
+            </svg>
+            
+          </button>
+          <div class="flex-row basis-2/5 shrink-0 mx-2 my-2 pl-2">
+            <span>Name</span>
+          </div>
+          <div class="flex-row basis-1/5 shrink-0 mx-2 my-2 pl-2">
+            <span class="flex">Category</span>
+          </div>
+          <div class="flex-row basis-1/5 shrink-0 mx-2 my-2 pl-2">
+            <span class="flex">Pack</span>
+          </div>
+        </div>
+
+    </div>
+    <div class="flex flex-col flex-nowrap mb-20 pt-14">
       {% for object in object_list %} 
       
-        <div class="group flex flex-row text-white rounded-lg items-center divide-x divide-slate-700 hover:bg-gray-600 active:bg-gray-700 duration-400" >
-          <button class="shrink-0 size-8 bg-red-900 bg-clip-border rounded-full mx-2 my-2 divide-none">
-            <img src="{{object.pack.artwork.url}}">
+        <div tabindex=0 class="sample transition :outline-none focus:bg-gray-700 group flex flex-row text-white rounded-lg items-center divide-x divide-slate-700  hover:bg-gray-600  duration-400" >
+          <button class="flex transition shrink-0 size-8 bg-gray-900 hover:bg-gray-500 hover:shadow-lg hover:ring-2 hover:ring-indigo-200  bg-clip-border rounded-full mx-2 my-2 divide-none">
+            <svg class="m-1 w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
+            </svg>
+            
           </button>
     
-          <div class="flex flex-row group/name basis-2/5 shrink-0 mx-2 my-2 pl-2 text-ellipsis font-bold text-md font-sans cursor-pointer transition ease-in-out" onclick="SelectSample(this, '{{object.file.url}}', '{{object.name}}')">
-            <a class="flex group-hover:bg-gray-700 rounded-lg py-2 px-3 w-auto">
+          <div id="trackdiv" class="flex-row group/name basis-2/5 shrink-0 mx-2 my-2 pl-2 text-ellipsis font-bold text-sm font-sans cursor-pointer transition ease-in-out" title={{object.name}} data-url="{{object.file.url}}" onclick="SelectSample(this)">
+            <a class="flex group-hover/name:bg-sky-950 rounded-lg py-2 px-3 w-auto">
               <span class="">{{ object.name }}</span>
               <svg class="invisible text-slate-400 transition group-hover/name:translate-x-0.5 group-hover/name:visible" width="18" heigth="18px" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"></path>
@@ -27,12 +50,18 @@
           </div>
           {% for value, name in object.categories.choices %}
           {% if value == object.category %}
-          <div class="group/cat basis-1/5 mx-2 my-2 hover:font-bold hover:text-blue-300 pl-2">
-            <a href="" class="group-hover/cat:bg-gray-700 py-2 px-3 rounded-full">{{ name }}</a></div>
+          <div class="flex flex-row basis-1/5 mx-2 my-2 text-sm pl-2">
+            <a href="" class="flex group/cat hover:bg-sky-950 hover:font-bold hover:text-blue-300 py-2 px-3 rounded-full">
+              <span>{{ name }}</span>
+              <svg class="invisible text-slate-400 transition group-hover/cat:translate-x-0.5 group-hover/cat:visible" width="18" heigth="18px" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"></path>
+              </svg>
+            </a>
+          </div>
           {% endif %}
           {% endfor %}
-          <div class="group/pack flex flex-row basis-1/5 mx-2 my-2 hover:font-bold hover:text-blue-300 pl-2">
-            <a class="flex group-hover/pack:bg-gray-700 py-2 px-3 rounded-full w-auto" href="/sample/{{ object.pack }}">
+          <div class=" flex flex-row basis-1/5 mx-2 my-2 text-sm pl-2">
+            <a class="flex group/pack hover:font-bold hover:text-blue-300 hover:bg-sky-950 px-3 py-2 rounded-full w-auto " href="/sample/{{ object.pack }}">
               <span>{{ object.pack }}</span>
               <svg class="invisible text-slate-400 transition group-hover/pack:translate-x-0.5 group-hover/pack:visible" width="18" heigth="18px" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"></path>
@@ -44,28 +73,36 @@
       
       {% empty %} 
       {% endfor %}
-      
-    </div>
-    <div class="pagination">
-      <span class="step-links">
+      <div class="flex mx-auto">
+        <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
           {% if page_obj.has_previous %}
-              <a href="?page=1">&laquo; first</a>
-              <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+          <a href="?page={{ page_obj.previous_page_number }}" class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+            <span class="sr-only">Previous</span>
+            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          
           {% endif %}
-    
           <span class="current">
-              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-          </span>
-    
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+          <!-- Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" -->
           {% if page_obj.has_next %}
-              <a href="?page={{ page_obj.next_page_number }}">next</a>
-              <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+          <a href="?page={{ page_obj.next_page_number }}" class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+            <span class="sr-only">Next</span>
+            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+            </svg>
+          </a>
           {% endif %}
-      </span>
+        </nav>
+      </div>
     </div>
+    
     
   </div>
-  <div class="flex fixed bottom-0 right-0 p-4 bg-teal-600 z-10 w-full sm:pl-64">
+  <div class="flex fixed bottom-0 right-0 p-4 bg-teal-600 z-10 w-full sm:pl-64 shadow-lg">
     <div class="flex flex-row px-4 w-full">
       <audio src="null" preload="none"></audio>
     
