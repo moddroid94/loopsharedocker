@@ -1,5 +1,7 @@
 # LoopShare
-Online Audio production Library
+Online Audio production Library Manager/Explorer
+
+⚠️THIS IS NOT INTENDED FOR PUBLIC USAGE, NO SANITIZATION IS MADE AND SECURITY ISN'T THE CONCERT AS OF NOW⚠️
 
 # Tech Stack
 
@@ -17,7 +19,7 @@ Online Audio production Library
 
 ## Frontend
 - TailwindCSS
-- Js & jQuery
+- Flowbite
 
 
 # Development
@@ -25,12 +27,15 @@ Online Audio production Library
 VSCode workspace is inside repo containing all the task inside.
 
 ### dev branch
-As of now it is configured to run in a venv with requisites.txt, apart node related installs,  default db and local statics
+As of now it is configured to run in a venv with requisites.txt with default db and local statics, apart node related installs as per package.json
+
+### Main Branch
+Not actually usable, just scaffold 
 
 
 #### Requisites to build prod images (only for main)
-'apt-get update'
-'apt-get install docker docker-compose'
+> apt-get update
+> apt-get install docker docker-compose
 
 #### Compile CSS
 The compiled.css file should be moved inside the app folder before build
