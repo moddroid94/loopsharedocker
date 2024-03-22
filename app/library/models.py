@@ -41,7 +41,7 @@ class Sample(models.Model):
     name = models.CharField(max_length=100, blank=True)
 
     class Meta:
-        ordering = ['-name', "name", "pack", "category"]
+        ordering = ["name", "pack", "category"]
     
     def __str__(self):
         return f"{self.file}"

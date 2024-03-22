@@ -16,27 +16,41 @@
             </svg>
             
           </button>
-          <div class="flex-row basis-2/5 shrink-0 mx-2 my-2 pl-2" onclick="OrderBy('name')">
-            <span>Name</span>
+          <div class="flex-row basis-2/5 shrink-0 mx-2 my-2 pl-2" onclick="OrderBy(this, 'name')">
+            <div class="flex">
+              <span>Name</span>
+              <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 10 4 4 4-4"/>
+              </svg>
+            </div>
           </div>
-          <div class="flex-row basis-1/5 shrink-0 mx-2 my-2 pl-2" onclick="OrderBy('category')">
-            <span class="flex">Category</span>
+          <div class="flex-row basis-1/5 shrink-0 mx-2 my-2 pl-2" onclick="OrderBy(this, 'category')">
+            <div class="flex">
+              <span>Category</span>
+              <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 10 4 4 4-4"/>
+              </svg>
+            </div>
           </div>
-          <div class="flex-row basis-1/5 shrink-0 mx-2 my-2 pl-2" onclick="OrderBy('pack')">
-            <span class="flex">Pack</span>
+          <div class="flex-row basis-1/5 shrink-0 mx-2 my-2 pl-2" onclick="OrderBy(this, 'pack')">
+            <div class="flex">
+              <span>Pack</span>
+              <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 10 4 4 4-4"/>
+              </svg>
+            </div>
           </div>
         </div>
 
     </div>
-    <div class="flex flex-col flex-nowrap mb-20 pt-14">
+    <div class="flex flex-col flex-nowrap mb-20 pt-14 listcontainer">
       {% for object in object_list %} 
       
-        <div tabindex=0 class="sample transition :outline-none focus:bg-gray-700 group flex flex-row text-white rounded-lg items-center divide-x divide-slate-700  hover:bg-gray-600  duration-400" >
+        <div data-position="{{object.pk}}" tabindex=0 class="sample transition :outline-none focus:bg-gray-700 group flex flex-row text-white rounded-lg items-center divide-x divide-slate-700  hover:bg-gray-600  duration-400" >
           <button class="flex transition shrink-0 size-8 bg-gray-900 hover:bg-gray-500 hover:shadow-lg hover:ring-2 hover:ring-indigo-200  bg-clip-border rounded-full mx-2 my-2 divide-none">
             <svg class="m-1 w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
             </svg>
-            
           </button>
     
           <div id="trackdiv" class="flex-row group/name basis-2/5 shrink-0 mx-2 my-2 pl-2 text-ellipsis font-bold text-sm font-sans cursor-pointer transition ease-in-out" title={{object.name}} data-url="{{object.file.url}}" onclick="SelectSample(this)">
@@ -60,7 +74,7 @@
           </div>
           {% endif %}
           {% endfor %}
-          <div class=" flex flex-row basis-1/5 mx-2 my-2 text-sm pl-2">
+          <div class="flex flex-row basis-1/5 mx-2 my-2 text-sm pl-2">
             <a class="flex group/pack hover:font-bold hover:text-blue-300 hover:bg-sky-950 px-3 py-2 rounded-full w-auto " href="/sample/pack={{ object.pack }}">
               <span>{{ object.pack }}</span>
               <svg class="invisible text-slate-400 transition group-hover/pack:translate-x-0.5 group-hover/pack:visible" width="18" heigth="18px" viewBox="0 0 20 20" fill="currentColor">
@@ -68,8 +82,9 @@
               </svg>
             </a>
           </div>
+          <div class="h-0.5 bg-gray-700"></div>
         </div>
-        <div class="h-0.5 bg-gray-700"></div>
+        
       
       {% empty %} 
       {% endfor %}

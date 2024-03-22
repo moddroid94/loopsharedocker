@@ -73,13 +73,14 @@ function SelectSample(parentElement){
     play()
 }
 
-function OrderBy(ordering){
+function OrderBy(parentElement, ordering){
+  var oldclass = parentElement.querySelector("svg")
+  
   location = document.location
   let url = location.origin + location.pathname
   let params = new URLSearchParams(location.search);
   params.set('ord', ordering)
   location.assign('?' + params)
-  //window.location.href = window.location.href
 
 }
 
