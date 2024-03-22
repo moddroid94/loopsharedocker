@@ -16,13 +16,13 @@
             </svg>
             
           </button>
-          <div class="flex-row basis-2/5 shrink-0 mx-2 my-2 pl-2">
+          <div class="flex-row basis-2/5 shrink-0 mx-2 my-2 pl-2" onclick="OrderBy('name')">
             <span>Name</span>
           </div>
-          <div class="flex-row basis-1/5 shrink-0 mx-2 my-2 pl-2">
+          <div class="flex-row basis-1/5 shrink-0 mx-2 my-2 pl-2" onclick="OrderBy('category')">
             <span class="flex">Category</span>
           </div>
-          <div class="flex-row basis-1/5 shrink-0 mx-2 my-2 pl-2">
+          <div class="flex-row basis-1/5 shrink-0 mx-2 my-2 pl-2" onclick="OrderBy('pack')">
             <span class="flex">Pack</span>
           </div>
         </div>
@@ -51,7 +51,7 @@
           {% for value, name in object.categories.choices %}
           {% if value == object.category %}
           <div class="flex flex-row basis-1/5 mx-2 my-2 text-sm pl-2">
-            <a href="" class="flex group/cat hover:bg-sky-950 hover:font-bold hover:text-blue-300 py-2 px-3 rounded-full">
+            <a href="/sample/cat={{ value }}" class="flex group/cat hover:bg-sky-950 hover:font-bold hover:text-blue-300 py-2 px-3 rounded-full">
               <span>{{ name }}</span>
               <svg class="invisible text-slate-400 transition group-hover/cat:translate-x-0.5 group-hover/cat:visible" width="18" heigth="18px" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"></path>
@@ -61,7 +61,7 @@
           {% endif %}
           {% endfor %}
           <div class=" flex flex-row basis-1/5 mx-2 my-2 text-sm pl-2">
-            <a class="flex group/pack hover:font-bold hover:text-blue-300 hover:bg-sky-950 px-3 py-2 rounded-full w-auto " href="/sample/{{ object.pack }}">
+            <a class="flex group/pack hover:font-bold hover:text-blue-300 hover:bg-sky-950 px-3 py-2 rounded-full w-auto " href="/sample/pack={{ object.pack }}">
               <span>{{ object.pack }}</span>
               <svg class="invisible text-slate-400 transition group-hover/pack:translate-x-0.5 group-hover/pack:visible" width="18" heigth="18px" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"></path>

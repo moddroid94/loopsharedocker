@@ -73,6 +73,16 @@ function SelectSample(parentElement){
     play()
 }
 
+function OrderBy(ordering){
+  location = document.location
+  let url = location.origin + location.pathname
+  let params = new URLSearchParams(location.search);
+  params.set('ord', ordering)
+  location.assign('?' + params)
+  //window.location.href = window.location.href
+
+}
+
 jQuery(document).keydown(function(e){
   switch(e.which) {
       case 37: // left

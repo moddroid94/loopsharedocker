@@ -31,6 +31,11 @@ class SampleList(ListView):
         if "pack" in self.kwargs:
             self.pack = get_object_or_404(Pack, name=self.kwargs["pack"] )
             return Sample.objects.filter(pack=self.pack)
-        else :
-            return super().get_queryset()
+        if "category" in self.kwargs:
+            return Sample.objects.filter(category=self.kwargs["category"])
+        qs = super().get_queryset()
+        category = self.request.GET.get('ord')
+        if category is None:
+            return qs
+        return qs.order_by(category)
         
