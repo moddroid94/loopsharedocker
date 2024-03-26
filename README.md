@@ -1,4 +1,6 @@
-# LoopShare
+# LoopShare (Deprecated)
+# Superseeded by OpenLoop 
+
 Online Audio production Library Manager/Explorer
 
 ⚠️THIS IS NOT INTENDED FOR PUBLIC USAGE, NO SANITIZATION IS MADE AND SECURITY ISN'T THE CONCERT AS OF NOW⚠️
